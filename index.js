@@ -1,10 +1,16 @@
-import http from "http";
+import express from "express";
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.end("Hello Node.js from hal_homepage!");
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
 });
 
-server.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+app.get("/api/user", (req, res) => {
+  res.json({ id: 1, name: "Haru" });
 });
-EOF
+
+app.listen(3000, () => {
+  console.log("Express server running at http://localhost:3000");
+});
+
+

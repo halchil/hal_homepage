@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name ec2-18-183-108-70.ap-northeast-1.compute.amazonaws.com;
+
+    # Let's Encrypt 用の ACME チャレンジを許可
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    # Next.js へのプロキシ
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+
