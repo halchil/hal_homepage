@@ -1,0 +1,5 @@
+# Nodejs.関連はnextjsディレクトリ側の.gitignoreで管理
+
+
+# Nginx
+nginx/ssl
