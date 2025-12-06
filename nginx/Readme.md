@@ -85,3 +85,8 @@ sudo systemctl restart nginx
 
 Let's Encryptで登録を行う。
 
+```
+mkdir /usr/share/nginx/html/.well-known
+mkdir /usr/share/nginx/html/.well-known
+
+```
