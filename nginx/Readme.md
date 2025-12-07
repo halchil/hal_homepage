@@ -90,3 +90,5 @@ mkdir /usr/share/nginx/html/.well-known
 mkdir /usr/share/nginx/html/.well-known
 
 ```
+
+# index.html以外の表示
