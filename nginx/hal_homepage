@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name ec2-18-183-108-70.ap-northeast-1.compute.amazonaws.com;
+    server_name haru-oss.com;
 
     # Let's Encrypt 用の ACME チャレンジを許可
     location /.well-known/acme-challenge/ {
@@ -16,11 +16,11 @@ server {
 # HTTPS サーバー
 server {
     listen 443 ssl;
-    server_name ec2-18-183-108-70.ap-northeast-1.compute.amazonaws.com;
+    server_name haru-oss.com;
 
     # 証明書のパス
-    ssl_certificate /etc/letsencrypt/live/ec2-18-183-108-70.ap-northeast-1.compute.amazonaws.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/ec2-18-183-108-70.ap-northeast-1.compute.amazonaws.com/privkey.pem;
+    ssl_certificate /home/ubuntu/hal_homepage/nginx/ssl/fullchain.pem;
+    ssl_certificate_key /home/ubuntu/hal_homepage/nginx/ssl/privkey.pem;
 
     # セキュリティ設定
     ssl_protocols TLSv1.2 TLSv1.3;

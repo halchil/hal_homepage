@@ -10,7 +10,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
          
           {/* Command-style Logo */}
-          <h1 className="text-sm tracking-wide">
+          <h1 className="text-xl tracking-wide">
             <Link href="/" className="hover:text-white">
               $ HAL@homepage:~  
             </Link>
@@ -18,22 +18,22 @@ export default function Header() {
         </div>
 
         {/* Menu */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-xl">
 
           <Link href="/" className="hover:text-white transition">
-            ls
+            Readme.md
           </Link>
 
           <Link href="/company" className="hover:text-white transition">
-            cat company.txt
+            career.txt
           </Link>
 
-          <Link href="/service" className="hover:text-white transition">
-            ./service
+          <Link href="/blog" className="hover:text-white transition">
+            blog.yml
           </Link>
 
           <Link href="/contact" className="hover:text-white transition">
-            mail me
+            ./mail
           </Link>
 
         </nav>

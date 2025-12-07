@@ -92,3 +92,24 @@ mkdir /usr/share/nginx/html/.well-known
 ```
 
 # index.html以外の表示
+
+## https対応
+
+SSL登録を行うために、ルートパスに登録`/var/www/html/.well-...`
+鍵を`ssl`ディレクトリに保存
+
+新たに443用のconfigファイルに書き直してNginxを再起動する
+
+```
+# 既存のファイルを削除
+sudo rm /etc/nginx/sites-available/hal_homepage_80
+sudo rm /etc/nginx/sites-enabled/hal_homepage_80
+
+
+sudo cp ./nginx/hal_homepage /etc/nginx/sites-available
+sudo ln -s /etc/nginx/sites-available/hal_homepage /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+```
