@@ -1,0 +1,8 @@
+title: "物流データ基盤を Airflow + Docker で構築した話"
+date: "2025-02-03"
+tags:
+  - Airflow
+  - Docker
+  - Data Platform
+summary: "1か月で ETL パイプラインを構築した裏側などを書きました。"
+note_url: "https://note.com"

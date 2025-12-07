@@ -1,93 +1,124 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [text, setText] = useState("");
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  const [showWhale, setShowWhale] = useState(false);
+  const [whaleFrame, setWhaleFrame] = useState(0);
+
+  const fullText =
+    "$ whoami\n" +
+    "Name:  Keita Haruyama 春山 慶太\nCareer:  Fullstack Engineer\nCurious:  OSS Development\n\n" +
+    
+    "$ biography\n" +
+    "- Specializes in Building data platforms, Management, Data Analytics\n\n" +
+    
+    "$ projects --latest\n" +
+    "2025/11. 運送業向けデータ構築基盤開発 Logistics Data Platform\n" +
+    "2025/02. OSS-based Time Management System\n" +
+    "2024/07. AI-driven Automation Tools in Manufacturing Company\n\n" +
+
+    "$ contact\n" +
+    "e-mail: halz.create1215@gmail.com\n" +
+    "github: https://github.com/halchil\n" +
+    "LinkedIn: https://www.linkedin.com/in/halchil\n";
+
+  /* タイピング処理 */
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, i));
+      i++;
+      if (i > fullText.length) {
+        clearInterval(interval);
+        setTimeout(() => setShowWhale(true), 500); // 完了後に表示
+      }
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* カーソル点滅 */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCursorVisible(v => !v);
+    }, 500);
+    return () => clearInterval(timer);
+  }, []);
+
+
+
+
+  /* Docker Whale Swim Animation */
+  const whaleFrames = [
+`               ##         .
+         ## ## ##        ==
+      ## ## ## ## ##    ===
+  /"""""""""""""""""\\\\___/ ===
+ ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
+  \\\\______ o           __/
+    \\\\    \\\\         __/
+     \\\\____\\\\_______/
+`,
+
+`               ##        .  
+         ## ## ##       ===
+      ## ## ## ## ##    == 
+  /"""""""""""""""""\\\\___/ ==
+ ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
+  \\\\______ o         __/
+    \\\\    \\\\      __/
+     \\\\____\\\\____/
+`
+  ];
+
+  useEffect(() => {
+    if (!showWhale) return;
+
+    const timer = setInterval(() => {
+      setWhaleFrame(f => (f === 0 ? 1 : 0));
+    }, 600); // 泳ぎ速度
+    return () => clearInterval(timer);
+  }, [showWhale]);
+
   return (
-    <main className="min-h-screen bg-gray-100 text-gray-800">
+    <main className="min-h-screen bg-black text-green-400 font-mono p-10">
+      <div className="max-w-6xl mx-auto mt-12 border border-green-500 rounded-lg p-10 shadow-2xl bg-black/80">
 
-      {/* --- HERO HEADER --- */}
-      <header className="bg-gradient-to-r from-blue-600 to-green-500 py-10 shadow-md">
-        <h1 className="text-center text-4xl font-bold text-white tracking-wide">
-          ENGINEER CONNECT
-        </h1>
+        {/* Terminal Header */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-4 h-4 bg-red-500 rounded-full"></div>
+          <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+          <div className="w-4 h-4 bg-green-500 rounded-full"></div>
 
-        {/* Navigation */}
-        <nav className="mt-6">
-          <ul className="flex justify-center gap-10 text-white text-lg font-medium">
-            <li className="border-b-2 border-white pb-1">HOME</li>
-            <li className="hover:opacity-80 cursor-pointer">ABOUT US</li>
-            <li className="hover:opacity-80 cursor-pointer">PROJECTS</li>
-            <li className="hover:opacity-80 cursor-pointer">CONTACT</li>
-          </ul>
-        </nav>
-      </header>
-
-      {/* --- MAIN CONTENT --- */}
-      <section className="max-w-6xl mx-auto py-16 px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
-
-        {/* --- Featured Engineer (Left) --- */}
-        <div className="text-center">
-          <h2 className="text-xl font-bold mb-6 tracking-wide">FEATURED ENGINEER</h2>
-
-          <div className="flex justify-center">
-            <Image
-              src="/photo1.png"
-              alt="Featured Engineer"
-              width={120}
-              height={120}
-              className="rounded-full shadow"
-            />
-          </div>
-
-          <h3 className="mt-4 text-lg font-bold">AI-Enhanced Problem Solver,<br/> Dr. Akari Tanaka</h3>
-          <p className="mt-3 text-gray-600 text-sm leading-relaxed px-4">
-            Specializes in machine learning and natural processing.  
-            Leads our innovative AI research division.
-          </p>
+          <span className="ml-4 text-lg text-green-300">
+            terminal — engineer@home
+          </span>
         </div>
 
-        {/* --- Team Member Grid (Center) --- */}
-        <div className="text-center">
-          <h2 className="text-xl font-bold mb-6 tracking-wide">MEET OUR TEAM</h2>
+        {/* 左：タイピング → 右：くじら（後から表示） */}
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
 
-          <div className="grid grid-cols-3 gap-6 justify-items-center">
-            {[...Array(9)].map((_, i) => (
-              <div key={i} className="text-center">
-                <Image
-                  src={`/photo${i + 2}.png`}
-                  alt={`Team Member ${i + 1}`}
-                  width={80}
-                  height={80}
-                  className="rounded-full shadow"
-                />
-                <p className="mt-2 font-medium">Member {i + 1}</p>
-                <p className="text-xs text-gray-600">Role Example</p>
-              </div>
-            ))}
-          </div>
+          {/* LEFT */}
+          <pre className="whitespace-pre-wrap text-lg leading-relaxed">
+            {text}
+            <span className={`${cursorVisible ? "opacity-100" : "opacity-0"} text-2xl`}>
+              ▮
+            </span>
+          </pre>
+
+          {/* RIGHT（タイピング終了後に表示） */}
+          {showWhale && (
+            <pre className="text-green-500 opacity-90 text-base whitespace-pre-wrap">
+{whaleFrames[whaleFrame]}
+            </pre>
+          )}
+
+          
+
         </div>
-
-        {/* --- Latest Projects (Right) --- */}
-        <div>
-          <h2 className="text-xl font-bold mb-6 tracking-wide text-center">LATEST PROJECTS</h2>
-
-          <ul className="space-y-4 text-gray-700 text-sm leading-relaxed">
-            <li>• Neural Network Optimization for Robotics</li>
-            <li>• Secure Blockchain Implementation</li>
-            <li>• Interactive Data Visualization Tool</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* --- FOOTER --- */}
-      <footer className="bg-gray-900 text-white py-6 mt-10 text-center">
-        <p>© 2025 ENGINEER CONNECT</p>
-
-        <div className="flex justify-center gap-4 mt-3 text-xl">
-          <span className="hover:opacity-80 cursor-pointer"></span>
-          <span className="hover:opacity-80 cursor-pointer"></span>
-          <span className="hover:opacity-80 cursor-pointer"></span>
-        </div>
-      </footer>
+      </div>
     </main>
   );
 }
